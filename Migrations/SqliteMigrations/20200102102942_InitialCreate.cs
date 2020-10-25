@@ -13,11 +13,18 @@ namespace WebApi.Migrations.SqliteMigrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true),
+                    Salary = table.Column<int>(nullable: true),
+                    LoginName = table.Column<string>(nullable: true),
+                    DisplayName = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
-                    PasswordSalt = table.Column<byte[]>(nullable: true)
+                    PasswordSalt = table.Column<byte[]>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<string>(nullable: true),
+                    File = table.Column<string>(nullable: true)
+
+
                 },
                 constraints: table =>
                 {

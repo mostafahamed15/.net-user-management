@@ -22,11 +22,8 @@ namespace WebApi.Migrations.SqliteMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Salary")
+                        .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("BLOB");
@@ -34,8 +31,26 @@ namespace WebApi.Migrations.SqliteMigrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("BLOB");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("LoginName")
                         .HasColumnType("TEXT");
+                        
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("TEXT");
+                    
+                    b.Property<string>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("File")
+                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 

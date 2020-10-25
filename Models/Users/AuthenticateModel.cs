@@ -5,7 +5,7 @@ namespace WebApi.Models.Users
     public class AuthenticateModel
     {
         [Required]
-        public string Username { get; set; }
+        public string LoginName { get; set; }
 
         [Required]
         public string Password { get; set; }

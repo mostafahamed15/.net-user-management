@@ -25,14 +25,14 @@ namespace WebApi.Services
             _context = context;
         }
 
-        public User Authenticate(string username, string password)
+        public User Authenticate(string loginName, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(loginName) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = _context.Users.SingleOrDefault(x => x.Username == username);
+            var user = _context.Users.SingleOrDefault(x => x.LoginName == loginName);
 
-            // check if username exists
+            // check if loginName exists
             if (user == null)
                 return null;
 
@@ -60,8 +60,8 @@ namespace WebApi.Services
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
-                throw new AppException("Username \"" + user.Username + "\" is already taken");
+            if (_context.Users.Any(x => x.LoginName == user.LoginName))
+                throw new AppException("Login Name \"" + user.LoginName + "\" is already taken");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -83,21 +83,35 @@ namespace WebApi.Services
                 throw new AppException("User not found");
 
             // update username if it has changed
-            if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
+            if (!string.IsNullOrWhiteSpace(userParam.LoginName) && userParam.LoginName != user.LoginName)
             {
                 // throw error if the new username is already taken
-                if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new AppException("Username " + userParam.Username + " is already taken");
+                if (_context.Users.Any(x => x.LoginName == userParam.LoginName))
+                    throw new AppException("Login Name " + userParam.LoginName + " is already taken");
 
-                user.Username = userParam.Username;
+                user.LoginName = userParam.LoginName;
             }
 
-            // update user properties if provided
-            if (!string.IsNullOrWhiteSpace(userParam.FirstName))
-                user.FirstName = userParam.FirstName;
 
-            if (!string.IsNullOrWhiteSpace(userParam.LastName))
-                user.LastName = userParam.LastName;
+            user.IsActive = userParam.IsActive;
+            user.Salary = userParam.Salary;
+            user.File = userParam.File;
+            // update user properties if provided
+            if (!string.IsNullOrWhiteSpace(userParam.LoginName))
+                user.LoginName = userParam.LoginName;
+
+            if (!string.IsNullOrWhiteSpace(userParam.DisplayName))
+                user.DisplayName = userParam.DisplayName;
+
+            if (!string.IsNullOrWhiteSpace(userParam.Country))
+                user.Country = userParam.Country;
+
+            if (!string.IsNullOrWhiteSpace(userParam.Address))
+                user.Address = userParam.Address;
+
+            if (!string.IsNullOrWhiteSpace(userParam.DateOfBirth))
+                user.DateOfBirth = userParam.DateOfBirth;
+            
 
             // update password if provided
             if (!string.IsNullOrWhiteSpace(password))
